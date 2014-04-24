@@ -1,0 +1,17 @@
+﻿Add the following to the Edit Event Handler page in Project Web App,
+for the Project Creating event.
+
+Name: 
+Timesheet submitted Event Handler
+
+Description: 
+Timesheet submitted Event Handler for custom Prepopulation
+
+Assembly Name (check the correct attributes after registering the event handler in the GAC): 
+TimesheetEventHandler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9faeec6c4431c2d5
+
+Class Name:
+TimesheetEventHandler.TimesheetEventHandler
+
+Order:
+1

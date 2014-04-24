@@ -1,0 +1,4 @@
+C:\Projects\TimesheetEventHandler\bin\Debug\TimesheetEventHandler.dll
+C:\Projects\TimesheetEventHandler\bin\Debug\TimesheetEventHandler.pdb
+C:\Projects\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.dll
+C:\Projects\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.pdb
