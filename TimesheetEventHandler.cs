@@ -112,6 +112,7 @@ namespace TimesheetEventHandler
                     SetImpersonation(contextInfo.UserGuid);
                     //Get current period ID
                     var currentGuid = timesheet.Headers[0].WPRD_UID;
+                    //Read all Timesheet Periods
                     var periods = adminClient.ReadPeriods(SvcAdmin.PeriodState.All).TimePeriods.OrderBy(t => t.WPRD_START_DATE).ToList();
                     //Find the index of next period
                     int index = periods.FindIndex(t => t.WPRD_UID == currentGuid);
@@ -128,14 +129,15 @@ namespace TimesheetEventHandler
                             Guid TSUID = Guid.Empty;
                             //no prepopulationa
                             CreateTimesheet(contextInfo.UserGuid, nextPeriod.WPRD_UID, ref TSUID, ref nextTimesheet);
-                            //for each line that was added or modified in the current timesheet
+                            //for each line that was present in the current timesheet
+                            nextTimesheet.Lines.Clear();
                             foreach (var line in timesheet.Lines)
                             {
                                
                                 //add the line to the next timesheet
                                 try
                                 {
-
+                                   
                                 
                                 var lineRow = nextTimesheet.Lines.AddLinesRow(Guid.NewGuid(), nextTimesheet.Headers[0], line.ASSN_UID, line.TASK_UID, line.PROJ_UID,
                                     line.TS_LINE_CLASS_UID, line.TS_LINE_COMMENT, line.TS_LINE_VALIDATION_TYPE, line.TS_LINE_CACHED_ASSIGN_NAME,
