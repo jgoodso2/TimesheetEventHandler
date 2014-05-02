@@ -145,6 +145,10 @@ namespace TimesheetEventHandler
                                    line.TS_LINE_STATUS,
                                    0, line.TS_LINE_TASK_HIERARCHY);
                                 var date = nextPeriod.WPRD_START_DATE;
+                                    if(nextTimesheet.Lines.Any(t=>t.ASSN_UID == lineRow.ASSN_UID))
+                                    {
+                                        continue;
+                                    }
                                 Guid[] uids = new Guid[] { lineRow.TS_LINE_UID };
                                 timesheetClient.PrepareTimesheetLine(TSUID, ref nextTimesheet, uids);
                                 var actuals = lineRow.GetActualsRows();
@@ -195,7 +199,7 @@ namespace TimesheetEventHandler
             using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
             {
                 SetImpersonation(userUid);
-                timesheetClient.CreateTimesheet(tsDs, SvcTimeSheet.PreloadType.Default);
+                timesheetClient.CreateTimesheet(tsDs, SvcTimeSheet.PreloadType.None);
             }
             using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
             {
