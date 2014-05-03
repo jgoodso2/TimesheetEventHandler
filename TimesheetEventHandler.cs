@@ -27,7 +27,7 @@ namespace TimesheetEventHandler
         public Guid GetResourceUidFromNtAccount(String ntAccount)
         {
 
-            //ntAccount = "i:0#.w|" + ntAccount;
+            //ntAccount = "i:0#.w|" + ntAccount;  //this is an inconsequential change
             ntAccount = ntAccount.Trim('\"');
 
             string ntAccountCopy = ntAccount;
