@@ -102,7 +102,11 @@ namespace TimesheetEventHandler
             
             try
             {
+
+                //changes in the additional Logging branch.
                 base.OnSubmitted(contextInfo, e);
+
+
                 SetClientEndpoint(contextInfo.SiteGuid);
                 Guid pwaGuid = contextInfo.SiteGuid;
                 using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
