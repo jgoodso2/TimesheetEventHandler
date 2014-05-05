@@ -2,3 +2,7 @@ C:\Projects\TimesheetEventHandler\bin\Debug\TimesheetEventHandler.dll
 C:\Projects\TimesheetEventHandler\bin\Debug\TimesheetEventHandler.pdb
 C:\Projects\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.dll
 C:\Projects\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.pdb
+C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\bin\Debug\TimesheetEventHandler.dll
+C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\bin\Debug\TimesheetEventHandler.pdb
+C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.dll
+C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.pdb

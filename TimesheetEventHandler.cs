@@ -106,7 +106,7 @@ namespace TimesheetEventHandler
                 //changes in the additional Logging branch.
                 base.OnSubmitted(contextInfo, e);
 
-
+                WriteLogEntries("", Guid.NewGuid(), "Timesheet OnSubmitted Event handler fired");
                 SetClientEndpoint(contextInfo.SiteGuid);
                 Guid pwaGuid = contextInfo.SiteGuid;
                 using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
@@ -219,22 +219,22 @@ namespace TimesheetEventHandler
         {
             try
             {
-                EventLogEntryType entryType = EventLogEntryType.Error;
-                string taskInfo = "";
+                //EventLogEntryType entryType = EventLogEntryType.Error;
+                //string taskInfo = "";
 
-                eventLog.Source = EVENT_SOURCE;
+                //eventLog.Source = EVENT_SOURCE;
 
-                string logEntry = "User: " + userName;
-                logEntry += "\nTSUID: " + tsUID.ToString();
+                //string logEntry = "User: " + userName;
+                //logEntry += "\nTSUID: " + tsUID.ToString();
 
-                logEntry += "Error:" + error;
-                // Create an event log entry.
-                eventLog.WriteEntry(logEntry, entryType, EVENT_ID);
+                //logEntry += "Error:" + error;
+                //// Create an event log entry.
+                //eventLog.WriteEntry(logEntry, entryType, EVENT_ID);
 
                 // Create a ULS log entry.
 
 
-                LoggingService.LogError(LoggingService.PROJECT_WARNING, logEntry);
+                LoggingService.LogError(LoggingService.PROJECT_WARNING, error);
 
             }
             catch (Exception)
