@@ -255,7 +255,8 @@ namespace TimesheetEventHandler
             //TODO: look for dispose issue
             using (SPSite pwaSite = new SPSite(pwaUid))
             {
-                string pwaUrl = pwaSite.Url;
+                string pwaUrl = "http://perviewqa.app.medcity.net/PWA/_vti_bin/PSI/ProjectServer.svc";
+
 
                 if (pwaUrl.Contains("https:"))
                 {
