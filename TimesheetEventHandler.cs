@@ -257,16 +257,16 @@ namespace TimesheetEventHandler
             {
                 string pwaUrl = pwaSite.Url;
 
-                if (pwaUrl.Contains("https:"))
-                {
-                    // Create a binding for HTTPS.
-                    binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-                }
-                else
-                {
+                //if (pwaUrl.Contains("https:"))
+                //{
+                //    // Create a binding for HTTPS.
+                //    binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
+                //}
+                //else
+                //{
                     // Create a binding for HTTP.
                     binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly);
-                }
+                //}
 
                 binding.Name = "basicHttpConf";
                 binding.SendTimeout = TimeSpan.MaxValue;
