@@ -252,7 +252,7 @@ namespace TimesheetEventHandler
             const string svcRouter = "/_vti_bin/PSI/ProjectServer.svc";
 
             BasicHttpBinding binding = null;
-            //TODO: look for dispose issue
+            //TODO: look for dispose issue 
             using (SPSite pwaSite = new SPSite(pwaUid))
             {
                 string pwaUrl = "http://perviewqa.app.medcity.net/PWA/_vti_bin/PSI/ProjectServer.svc";
