@@ -278,7 +278,7 @@ namespace TimesheetEventHandler
                 binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Ntlm;
 
                 // The endpoint address is the ProjectServer.svc router for all public PSI calls.
-                EndpointAddress address = new EndpointAddress(pwaUrl + svcRouter);
+                EndpointAddress address = new EndpointAddress(pwaUrl);
 
                 timesheetClient = new SvcTimeSheet.TimeSheetClient(binding, address);
                 timesheetClient.ChannelFactory.Credentials.Windows.AllowedImpersonationLevel
