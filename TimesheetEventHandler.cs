@@ -107,6 +107,7 @@ namespace TimesheetEventHandler
                 base.OnSubmitted(contextInfo, e);
 
                 WriteLogEntries("", Guid.NewGuid(), "Timesheet OnSubmitted Event handler fired");
+                //pick up url from app.config
                 SetClientEndpoint(contextInfo.SiteGuid);
                 Guid pwaGuid = contextInfo.SiteGuid;
                 using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
@@ -252,10 +253,10 @@ namespace TimesheetEventHandler
             const string svcRouter = "/_vti_bin/PSI/ProjectServer.svc";
 
             BasicHttpBinding binding = null;
-            //TODO: look for dispose issue 
+            //TODO: look for dispose issue
             using (SPSite pwaSite = new SPSite(pwaUid))
             {
-                string pwaUrl = "http://perviewqa.app.medcity.net/PWA/_vti_bin/PSI/ProjectServer.svc";
+                string pwaUrl = pwaSite.Url;
 
 
                 if (pwaUrl.Contains("https:"))
@@ -276,9 +277,10 @@ namespace TimesheetEventHandler
                 binding.ReaderQuotas.MaxNameTableCharCount = MAXSIZE;
                 binding.MessageEncoding = WSMessageEncoding.Text;
                 binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Ntlm;
-
+                //hard coded
+                string pwaurl = "http://nadcwqappmsp01a:32843/";
                 // The endpoint address is the ProjectServer.svc router for all public PSI calls.
-                EndpointAddress address = new EndpointAddress(pwaUrl);
+                EndpointAddress address = new EndpointAddress(pwaUrl + svcRouter);
 
                 timesheetClient = new SvcTimeSheet.TimeSheetClient(binding, address);
                 timesheetClient.ChannelFactory.Credentials.Windows.AllowedImpersonationLevel
