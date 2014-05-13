@@ -229,7 +229,14 @@ namespace TimesheetEventHandler
 
                 logEntry += "Error:" + error;
                 // Create an event log entry.
-                eventLog.WriteEntry(logEntry, entryType, EVENT_ID);
+
+                try
+                {
+                    eventLog.WriteEntry(logEntry, entryType, EVENT_ID);
+                }
+                catch (Exception ex)
+                {
+                }
 
                 // Create a ULS log entry.
 
