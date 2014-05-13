@@ -66,7 +66,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="WCFHelpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d9db02ebb67c839, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\WCFHelpers.dll</HintPath>
+      <HintPath>..\..\..\..\..\Windows\assembly\GAC_MSIL\WCFHelpers\1.0.0.0__6d9db02ebb67c839\WCFHelpers.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
