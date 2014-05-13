@@ -102,7 +102,7 @@ namespace TimesheetEventHandler
             
             try
             {
-
+                WriteLogEntries("", Guid.NewGuid(), "Timesheet Event Handler Fired");
                 //changes in the additional Logging branch.
                 base.OnSubmitted(contextInfo, e);
 
