@@ -6,3 +6,5 @@ C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\bin\Debug\Timeshee
 C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\bin\Debug\TimesheetEventHandler.pdb
 C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.dll
 C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.pdb
+C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\obj\Debug\TimesheetEventHandler.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\TimesheetEventHandler\bin\Debug\WCFHelpers.dll

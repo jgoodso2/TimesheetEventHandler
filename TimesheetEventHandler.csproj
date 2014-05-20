@@ -64,9 +64,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WCFHelpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d9db02ebb67c839, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Windows\assembly\GAC_MSIL\WCFHelpers\1.0.0.0__6d9db02ebb67c839\WCFHelpers.dll</HintPath>
+    <Reference Include="WCFHelpers">
+      <HintPath>..\SharedLibrary\WCFHelpers.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
