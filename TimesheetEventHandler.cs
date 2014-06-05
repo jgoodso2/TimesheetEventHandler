@@ -103,6 +103,8 @@ namespace TimesheetEventHandler
             try
             {
                 WriteLogEntries("", Guid.NewGuid(), "Timesheet Event Handler Fired");
+                WriteLogEntries("", Guid.NewGuid(), "User Executing onSubmitted = " + System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+
                 //changes in the additional Logging branch.
                 base.OnSubmitted(contextInfo, e);
 
