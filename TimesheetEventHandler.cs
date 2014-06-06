@@ -55,7 +55,7 @@ namespace TimesheetEventHandler
             var obj = (Guid)rds.Resources.Rows[0]["RES_UID"];
             return obj;
         }
-        public void SetImpersonation(Guid resourceGuid)
+        public void SetImpersonation(Guid  resourceGuid,string userName)
         {
             Guid trackingGuid = Guid.NewGuid();
 
@@ -65,14 +65,16 @@ namespace TimesheetEventHandler
             CultureInfo languageCulture = null; // The language culture is not used.
             CultureInfo localeCulture = null;   // The locale culture is not used.
 
-
+            WriteLogEntries("", Guid.NewGuid(), "FInd User to Impersonate");
             WcfHelpers.SetImpersonationContext(isWindowsUser,
-
-                resourceClient.ReadResource(resourceGuid).Resources[0].RES_NAME, resourceGuid, trackingGuid, siteId,
+                
+                userName, resourceGuid, trackingGuid, siteId,
                                                languageCulture, localeCulture);
+            WriteLogEntries("", Guid.NewGuid(), "User Impersonated = " + userName);
+
             WCFHelpers.WcfHelpers.UseCorrectHeaders(true);
         }
-        private void SaveTimesheet(Guid userId, SvcTimeSheet.TimesheetDataSet tsDs, Guid tsGuid)
+        private void SaveTimesheet(Guid userId, string userName,SvcTimeSheet.TimesheetDataSet tsDs, Guid tsGuid)
         {
 
             try
@@ -82,7 +84,7 @@ namespace TimesheetEventHandler
 
                 using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
                 {
-                    SetImpersonation(userId);
+                    SetImpersonation(userId,userName);
                     var temp = tsDs.GetChanges();
                     timesheetClient.QueueUpdateTimesheet(jobGuid,
                          tsGuid,
@@ -113,13 +115,17 @@ namespace TimesheetEventHandler
                 Guid pwaGuid = contextInfo.SiteGuid;
                 using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
                 {
-                    var timesheetCopy = timesheetClient.ReadTimesheet(e.TsUID);
-                    var timesheet = timesheetCopy;
-                    SetImpersonation(contextInfo.UserGuid);
-                    //Get current period ID
-                    var currentGuid = timesheet.Headers[0].WPRD_UID;
                     //Read all Timesheet Periods
                     var periods = adminClient.ReadPeriods(SvcAdmin.PeriodState.All).TimePeriods.OrderBy(t => t.WPRD_START_DATE).ToList();
+                    WriteLogEntries("", Guid.NewGuid(), "Admin Read periods done with " + System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+                    //Set Impersonation
+                    SetImpersonation(contextInfo.UserGuid, contextInfo.UserName);
+                    var timesheetCopy = timesheetClient.ReadTimesheet(e.TsUID);
+                    var timesheet = timesheetCopy;
+                    
+                    //Get current period ID
+                    var currentGuid = timesheet.Headers[0].WPRD_UID;
+                   
                     //Find the index of next period
                     int index = periods.FindIndex(t => t.WPRD_UID == currentGuid);
                     var nextPeriod = (index == periods.Count() - 1) ? periods.ElementAt(index) : periods.ElementAt(index + 1);
@@ -134,7 +140,7 @@ namespace TimesheetEventHandler
                         {
                             Guid TSUID = Guid.Empty;
                             //no prepopulationa
-                            CreateTimesheet(contextInfo.UserGuid, nextPeriod.WPRD_UID, ref TSUID, ref nextTimesheet);
+                            CreateTimesheet(contextInfo.UserGuid,contextInfo.UserName, nextPeriod.WPRD_UID, ref TSUID, ref nextTimesheet);
                             //for each line that was present in the current timesheet
                             nextTimesheet.Lines.Clear();
                             foreach (var line in timesheet.Lines)
@@ -172,7 +178,7 @@ namespace TimesheetEventHandler
                                 }
                             }
                             //Save next timesheet
-                            SaveTimesheet(contextInfo.UserGuid, nextTimesheet, TSUID);
+                            SaveTimesheet(contextInfo.UserGuid,contextInfo.UserName, nextTimesheet, TSUID);
 
                         }
                     }
@@ -189,7 +195,7 @@ namespace TimesheetEventHandler
         }
 
 
-        private void CreateTimesheet(Guid userUid, Guid periodUID, ref Guid tuid, ref SvcTimeSheet.TimesheetDataSet tsDs)
+        private void CreateTimesheet(Guid userUid,string userName, Guid periodUID, ref Guid tuid, ref SvcTimeSheet.TimesheetDataSet tsDs)
         {
             tsDs = new SvcTimeSheet.TimesheetDataSet();
             SvcTimeSheet.TimesheetDataSet.HeadersRow headersRow = tsDs.Headers.NewHeadersRow();
@@ -204,12 +210,12 @@ namespace TimesheetEventHandler
 
             using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
             {
-                SetImpersonation(userUid);
+                SetImpersonation(userUid,userName);
                 timesheetClient.CreateTimesheet(tsDs, SvcTimeSheet.PreloadType.None);
             }
             using (OperationContextScope scope = new OperationContextScope(timesheetClient.InnerChannel))
             {
-                SetImpersonation(userUid);
+                SetImpersonation(userUid,userName);
                 tsDs = timesheetClient.ReadTimesheet(tuid); //calling ReadTimesheet to pre populate with default server settings
             }
         }
